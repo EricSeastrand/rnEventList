@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ListView, Image } from 'react-native';
 import { Thumbnail, Container, Content, Card, CardItem, Body, Button, Header, Title,  Text } from 'native-base';
 
+import EventCard from './components/event-card';
+
+
 export default class rnPavillion extends Component {
   
   constructor(props) {
@@ -13,66 +16,31 @@ export default class rnPavillion extends Component {
     //   ])
     // };
     this.state = {
-      popo: []
+        events: []
     };
   }
 
+  componentWillMount() {
+    this.fetchEvents();    
+  }
+
   fetchEvents() {
+    
     var request = new Request('https://woodlandscenter.dev.busites.com/app-api/events');
     var result = fetch(request).then((response) => response.json());
+    
     result.then(asd => {
-        
-        const popo = Object.entries(asd).map(obj => obj[1])
-        
-        this.setState({ popo });
+        const events = Object.entries(asd).map(obj => obj[1])
+        this.setState({ events });
     });
     
   }
 
-  componetDidMount() {
-
-    // this.fetchEvents().then(evts => {
-    //     console.log(evts);
-    //     const events = evts.map(obj => obj.data);
-    //     console.log(events);
-    // })  
-  }
-
-  //move to elements
   renderEvents() {
-    //var array = [{name: 'sdasdasd', uri: 'https://s3.amazonaws.com/busites_www/woodlandscenter2016com/pages/meta/1/1/bond_and_beyond_1488320972.png'}];
-    //this.state.popo
-    return this.state.popo.map((data, index) => {
-      return (
-        <Card key={index}>
-            <CardItem>
-                <Body>
-                    <Thumbnail size={100} source={data.image} />
-                    {/*<Image
-                    source={{uri: data.image}}
-                    style={styles.container}>
-                    </Image>*/}
-                    <Text>
-                        {data.title}
-                    </Text>
-                </Body>
-            </CardItem>
-            <CardItem header>
-                <Text>{data.time}</Text>
-                <Text>{data.date}</Text>
-                {/*<Text>{data.date}</Text>
-                <Text>{date.time}</Text>*/}
-                {/*<Button primary><Text> Primary </Text></Button>
-                <Button primary><Text> Primary </Text></Button>*/}
-            </CardItem>
-        </Card>
-      )
-    })
-
+    return this.state.events.map((data, index) => {return <EventCard {...data} key={index}/>});
   }
-
+ 
   render() {
-      this.fetchEvents();
     return <Container>
                 <Header>
                     <Body>
@@ -80,7 +48,7 @@ export default class rnPavillion extends Component {
                     </Body>
                 </Header>
                 <Content>
-                 {this.renderEvents()}   
+                   {this.renderEvents()}   
                 </Content>
             </Container>
   }
