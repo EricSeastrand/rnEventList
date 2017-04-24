@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ListView, Image } from 'react-native';
-import { Thumbnail, Container, Content, Card, CardItem, Body, Button, Header, Title,  Text } from 'native-base';
+import { Thumbnail, List, Container, Content, Card, CardItem, Body, Button, Header, Title,  Text } from 'native-base';
 
 import EventCard from './components/event-card';
 
@@ -24,31 +24,26 @@ export default class rnPavillion extends Component {
     this.fetchEvents();    
   }
 
+  //need to work on this asyn
   fetchEvents() {
-    
     var request = new Request('https://woodlandscenter.dev.busites.com/app-api/events');
     var result = fetch(request).then((response) => response.json());
     
     result.then(asd => {
         const events = Object.entries(asd).map(obj => obj[1])
         this.setState({ events });
-    });
-    
+    }); 
   }
 
-  renderEvents() {
-    return this.state.events.map((data, index) => {return <EventCard {...data} key={index}/>});
-  }
- 
   render() {
     return <Container>
                 <Header>
                     <Body>
-                        <Title>Header</Title>
+                        <Title>The Pavillion</Title>
                     </Body>
                 </Header>
                 <Content>
-                   {this.renderEvents()}   
+                   <List style={{padding: 5}} dataArray={this.state.events} renderRow={(item) => <EventCard {...item} key={item.id}/>} />
                 </Content>
             </Container>
   }
