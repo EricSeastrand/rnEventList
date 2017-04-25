@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ListView, Image } from 'react-native';
-import { Thumbnail, List, Container, Content, Card, CardItem, Body, Button, Header, Title,  Text } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { List, Container, Content, Body, Button, Header, Title } from 'native-base';
 
 import EventCard from './components/event-card';
+import Loader from './components/loader';
 
 
 export default class rnPavillion extends Component {
@@ -16,7 +17,8 @@ export default class rnPavillion extends Component {
     //   ])
     // };
     this.state = {
-        events: []
+        events: [],
+        animating: true
     };
   }
 
@@ -32,6 +34,7 @@ export default class rnPavillion extends Component {
     result.then(asd => {
         const events = Object.entries(asd).map(obj => obj[1])
         this.setState({ events });
+        this.setState({animating: false});
     }); 
   }
 
@@ -43,8 +46,11 @@ export default class rnPavillion extends Component {
                     </Body>
                 </Header>
                 <Content>
-                   <List style={{padding: 5}} dataArray={this.state.events} renderRow={(item) => <EventCard {...item} key={item.id}/>} />
+                  <List style={{padding: 5}} dataArray={this.state.events} renderRow={(item) => <EventCard {...item} key={item.id}/>} />
+                  {/*need to make the loader better */}
+                  <Loader animating={this.state.animating} style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}/>
                 </Content>
+                
             </Container>
   }
 }
