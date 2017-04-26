@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { List, Container, Content, Body, Button, Header, Title } from 'native-base';
+import { List, Container, Content, Body, Button, Text, Header, Title, Icon, Footer, FooterTab } from 'native-base';
 
 import EventCard from './components/event-card';
 import Loader from './components/loader';
@@ -10,12 +10,7 @@ export default class rnPavillion extends Component {
   
   constructor(props) {
     super(props);
-    // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    // this.state = {
-    //   dataSource: ds.cloneWithRows([
-    //     'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-    //   ])
-    // };
+    
     this.state = {
         events: [],
         animating: true
@@ -33,8 +28,7 @@ export default class rnPavillion extends Component {
     
     result.then(asd => {
         const events = Object.entries(asd).map(obj => obj[1])
-        this.setState({ events });
-        this.setState({animating: false});
+        this.setState({ events, animating: false });
     }); 
   }
 
@@ -46,11 +40,27 @@ export default class rnPavillion extends Component {
                     </Body>
                 </Header>
                 <Content>
+                  {/* when pull up fetch more*/}
                   <List style={{padding: 5}} dataArray={this.state.events} renderRow={(item) => <EventCard {...item} key={item.id}/>} />
                   {/*need to make the loader better */}
                   <Loader animating={this.state.animating} style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}/>
                 </Content>
-                
+                <Footer>
+                  <FooterTab>
+                    <Button>
+                      <Icon name="square" />
+                      <Text>Cards</Text>
+                    </Button>
+                    <Button>
+                      <Icon name="list" />
+                      <Text>List</Text>
+                    </Button>
+                    <Button>
+                      <Icon name="navigate" />
+                      <Text>Map</Text>
+                    </Button>
+                  </FooterTab>
+              </Footer>
             </Container>
   }
 }
