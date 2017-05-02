@@ -23,11 +23,12 @@ export default class rnPavillion extends Component {
 
   //need to work on this asyn
   fetchEvents() {
-    var request = new Request('https://woodlandscenter.dev.busites.com/app-api/events');
+    var request = new Request('https://woodlandscenter.dev.busites.com/app-api/events?_format=json');
     var result = fetch(request).then((response) => response.json());
     
     result.then(asd => {
         const events = Object.entries(asd).map(obj => obj[1])
+        console.log(events);
         this.setState({ events, animating: false });
     }); 
   }
@@ -45,22 +46,6 @@ export default class rnPavillion extends Component {
                   {/*need to make the loader better */}
                   <Loader animating={this.state.animating} style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}/>
                 </Content>
-                <Footer>
-                  <FooterTab>
-                    <Button>
-                      <Icon name="square" />
-                      <Text>Cards</Text>
-                    </Button>
-                    <Button>
-                      <Icon name="list" />
-                      <Text>List</Text>
-                    </Button>
-                    <Button>
-                      <Icon name="navigate" />
-                      <Text>Map</Text>
-                    </Button>
-                  </FooterTab>
-              </Footer>
             </Container>
   }
 }

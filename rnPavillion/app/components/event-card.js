@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image, Text } from 'react-native';
-import { Container, Content, Card, CardItem, Body, Header, Title, Center } from 'native-base';
+import { Alert, StyleSheet, Image, Text, WebView, Linking } from 'react-native';
+import { Container, Content, Card, CardItem, Body, Header, Title, Center, Button } from 'native-base';
 
 export default class EventCard extends Component {
   
@@ -8,22 +8,29 @@ export default class EventCard extends Component {
     super(props);
   }
 
+  ticketInfo(url) {
+    return Linking.openURL(url);
+  }
+
   render() {
    return (
         <Card>
             <CardItem>
-                <Body>
-                    <Image
-                        source={{uri: this.props.image}}
-                        style={styles.picture} />
-                    <Text style={styles.title}>{this.props.title}</Text>
-                </Body>
+              <Body>
+              <Image 
+                source={{uri: this.props.page.image}}
+                style={styles.picture} />
+              <Text style={styles.title}>{this.props.page.title}</Text>
+              <Text style={styles.date}>{this.props.event_date}</Text>
+              </Body>
             </CardItem>
-            <CardItem header>
-                <Text style={styles.date}>{this.props.date}</Text>
-            </CardItem>
-            <CardItem header>
-                <Text style={styles.time}>{this.props.time}</Text>
+            <CardItem content>
+              <Button primary block>
+                <Text>MORE INFO</Text>
+              </Button>
+              <Button primary block onPress={() => this.ticketInfo(this.props.ticket_url)}>
+                <Text>TICKETS</Text>
+              </Button>
             </CardItem>
         </Card>)
   }
