@@ -1,11 +1,7 @@
 # react-native-pavillion
 
- endpoint to retrieve event data from the pavilion website 
-
-```https://woodlandscenter.dev.busites.com/app-api/events```
-
-
-
+Endpoint to retrieve event data from the pavilion website 
+```https://woodlandscenter.dev.busites.com/app-api/events?_format=json```
 
 
 ##Plugins:
@@ -16,3 +12,11 @@
 npm install native-base --save
 react-native link
 ```
+
+##TODOS
+
+- ~open ticket on website~
+- status bar styles
+- card styles
+- store events on storage
+- push down to refresh 
