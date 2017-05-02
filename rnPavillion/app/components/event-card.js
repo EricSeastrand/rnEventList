@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Alert, StyleSheet, Image, Text, WebView, Linking } from 'react-native';
-import { Container, Content, Card, CardItem, Body, Header, Title, Center, Button } from 'native-base';
+import { StyleSheet, Image, Text, Linking } from 'react-native';
+import { Content, Card, CardItem, Body, Header, Title, Center, Button } from 'native-base';
 
 export default class EventCard extends Component {
   

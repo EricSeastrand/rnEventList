@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { List, Container, Content, Body, Button, Text, Header, Title, Icon, Footer, FooterTab } from 'native-base';
+import { List, Container, Content, Body, Button, Text, Header, Title } from 'native-base';
 
 import EventCard from './components/event-card';
 import Loader from './components/loader';
-
 
 export default class rnPavillion extends Component {
   
@@ -21,7 +20,7 @@ export default class rnPavillion extends Component {
     this.fetchEvents();    
   }
 
-  //need to work on this asyn
+  //need to work on this async
   fetchEvents() {
     var request = new Request('https://woodlandscenter.dev.busites.com/app-api/events?_format=json');
     var result = fetch(request).then((response) => response.json());
@@ -75,14 +74,3 @@ const styles = StyleSheet.create({
     height: 150,
   }
 });
-
-
-
-
-  /*<View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData}</Text>}
-        />
-      </View>
-    */

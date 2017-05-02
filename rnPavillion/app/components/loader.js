@@ -5,6 +5,6 @@ export default class Loader extends Component {
     render() {
         return <View style={{backgroundColor: 'transparent'}}>
                 <ActivityIndicator style={{backgroundColor: 'transparent'}} size="large" animating={this.props.animating}/>
-             </View>
+               </View>
     }
 } 
